@@ -1,10 +1,3 @@
-# Procfile
-
-# Proceso web: Django con Gunicorn
-web: gunicorn djidji1.wsgi --log-file -
-
-# Worker de Celery para tareas asíncronas
+web: python manage.py migrate && gunicorn djidji1.wsgi:application --bind 0.0.0.0:$PORT
 worker: celery -A djidji1 worker --loglevel=info
-
-# Beat de Celery (opcional, para tareas programadas)
 beat: celery -A djidji1 beat --loglevel=info
