@@ -22,7 +22,16 @@ import os
 from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
-import magic  # Asegúrate de tener `python-magic` instalado
+try:
+    import magic
+except ImportError:
+    # Si magic no está disponible, crear un objeto dummy
+    class MagicMock:
+        def from_buffer(self, *args, **kwargs):
+            return "application/octet-stream"
+        def from_file(self, *args, **kwargs):
+            return "application/octet-stream"
+    magic = MagicMock() # Asegúrate de tener `python-magic` instalado
 
 class Song(models.Model):
     """
