@@ -9,4 +9,4 @@ __pycache__/
 *.zip
 *.egg-info/
 .venv/
-venv/
+venv/logs/ 
