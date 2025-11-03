@@ -1,0 +1,4 @@
+[deploy] 
+ 
+[deploy.environment] 
+DJANGO_SETTINGS_MODULE = "djidji1.settings" 
