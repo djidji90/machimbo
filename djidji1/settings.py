@@ -27,7 +27,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env.list(
     'ALLOWED_HOSTS',
-    default=['localhost', '127.0.0.1']
+    default=['*']  # Temporal para pruebas
 )
 
 # -----------------------------------------------------------------------------
@@ -80,14 +80,22 @@ ROOT_URLCONF = 'djidji1.urls'
 # -----------------------------------------------------------------------------
 #  CORS
 # -----------------------------------------------------------------------------
-CORS_ALLOWED_ORIGINS = env.list(
-    'CORS_ALLOWED_ORIGINS',
-    default=[
-        'https://djidjimudic.com',
-        'https://www.djidjimudic.com',
-        'http://localhost:8000',
-    ]
-)
+CORS_ALLOWED_ORIGINS = [
+    'https://web-production-a846.up.railway.app',  # ← AÑADE ESTE
+    'https://djidjimudic.com',
+    'https://www.djidjimudic.com',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-a846.up.railway.app',
+    'https://*.railway.app',
+    'https://djidjimudic.com',
+    'https://www.djidjimudic.com',
+]
 
 # -----------------------------------------------------------------------------
 #  TEMPLATES
@@ -123,10 +131,6 @@ DATABASES = {
 # -----------------------------------------------------------------------------
 #  REDIS / CACHE / CELERY
 # -----------------------------------------------------------------------------
-
-# -----------------------------------------------------------------------------
-#  REDIS / CACHE / CELERY
-# -----------------------------------------------------------------------------
 REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/1')
 
 CACHES = {
@@ -139,20 +143,17 @@ CACHES = {
     }
 }
 
-# ⚠️ DESACTIVAR CELERY TEMPORALMENTE - SOLUCIÓN DE EMERGENCIA ⚠️
-CELERY_TASK_ALWAYS_EAGER = True  # Ejecuta tareas inmediatamente en el mismo proceso
-CELERY_TASK_EAGER_PROPAGATES = True  # Las excepciones se propagan normalmente
-CELERY_BROKER_URL = 'memory://localhost/'  # Broker en memoria (no requiere Redis)
-CELERY_RESULT_BACKEND = 'cache+memory://'  # Resultados en cache de memoria
-
+# ⚠️ DESACTIVAR CELERY TEMPORALMENTE
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_BROKER_URL = 'memory://localhost/'
+CELERY_RESULT_BACKEND = 'cache+memory://'
 CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json' 
+CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Malabo'
 
-# Comentar estas líneas si existen:
-# CELERY_BEAT_SCHEDULE = {...}
-# CELERY_IMPORTS = [...]--------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 #  JWT / REST FRAMEWORK
 # -----------------------------------------------------------------------------
 SIMPLE_JWT = {
