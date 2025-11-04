@@ -6,20 +6,6 @@ from django.core.exceptions import ValidationError
 import os
 from pathlib import Path
 
-# SOLUCIÓN SEGURA PARA MAGIC - NO FALLARÁ EN DEPLOY
-try:
-    import magic
-    MAGIC_AVAILABLE = True
-except ImportError:
-    # Si magic no está disponible, crear un objeto dummy
-    class MagicMock:
-        def from_buffer(self, *args, **kwargs):
-            return "application/octet-stream"
-        def from_file(self, *args, **kwargs):
-            return "application/octet-stream"
-    magic = MagicMock()
-    MAGIC_AVAILABLE = False
-
 class Song(models.Model):
     """
     Modelo para representar canciones subidas por usuarios.
@@ -61,6 +47,7 @@ class Song(models.Model):
     def clean(self):
         super().clean()
 
+        # VALIDACIÓN SIMPLIFICADA - SIN MAGIC
         if self.file:
             # Validación de tamaño
             if self.file.size > 20 * 1024 * 1024:
@@ -68,33 +55,9 @@ class Song(models.Model):
 
             # Validación de extensión
             file_ext = os.path.splitext(self.file.name)[1].lower()
-            if file_ext not in ['.mp3', '.wav', '.ogg', '.webm', '.m4a', '.mp4']:
-                raise ValidationError(f"Extensión {file_ext} no permitida")
-
-            # Validación MIME (solo si magic está disponible)
-            if MAGIC_AVAILABLE:
-                try:
-                    self.file.seek(0)
-                    header = self.file.read(1024)
-                    self.file.seek(0)
-                    
-                    mime_type = magic.from_buffer(header, mime=True)
-                    
-                    # Normalización
-                    if mime_type in ['video/webm', 'audio/webm']:
-                        mime_type = 'audio/webm'
-                    elif mime_type in ['video/mp4', 'audio/x-m4a', 'audio/mp4']:
-                        mime_type = 'audio/mp4'
-
-                    # Validación final
-                    if mime_type not in ['audio/mpeg', 'audio/wav', 'audio/ogg', 
-                                       'audio/webm', 'audio/mp4']:
-                        raise ValidationError(
-                            f"Formato detectado: {mime_type}. "
-                            "Solo se aceptan archivos de audio puro (sin video)"
-                        )
-                except Exception as e:
-                    print(f"Advertencia: Error en validación MIME: {e}")
+            allowed_audio_extensions = ['.mp3', '.wav', '.ogg', '.webm', '.m4a', '.mp4']
+            if file_ext not in allowed_audio_extensions:
+                raise ValidationError(f"Extensión {file_ext} no permitida. Use: {', '.join(allowed_audio_extensions)}")
 
         # Validación de imagen
         if self.image:
@@ -102,26 +65,11 @@ class Song(models.Model):
             if self.image.size > max_image_size:
                 raise ValidationError("La imagen no puede exceder los 2MB")
 
-            # Validación MIME de imagen (solo si magic está disponible)
-            if MAGIC_AVAILABLE:
-                try:
-                    self.image.seek(0)
-                    image_type = magic.from_buffer(self.image.read(1024), mime=True)
-                    self.image.seek(0)
-
-                    allowed_image_types = [
-                        'image/jpeg',
-                        'image/png',
-                        'image/webp'
-                    ]
-
-                    if image_type not in allowed_image_types:
-                        raise ValidationError(
-                            f"Formato de imagen no soportado: {image_type}. "
-                            f"Permitidos: JPG, PNG, WEBP."
-                        )
-                except Exception as e:
-                    print(f"Advertencia: No se pudo verificar el tipo de imagen: {e}")
+            # Validación de extensión de imagen
+            image_ext = os.path.splitext(self.image.name)[1].lower()
+            allowed_image_extensions = ['.jpg', '.jpeg', '.png', '.webp']
+            if image_ext not in allowed_image_extensions:
+                raise ValidationError(f"Extensión de imagen {image_ext} no permitida. Use: {', '.join(allowed_image_extensions)}")
 
     def save(self, *args, **kwargs):
         self.full_clean()  # Ejecuta las validaciones antes de guardar
@@ -129,16 +77,19 @@ class Song(models.Model):
 
     def delete(self, *args, **kwargs):
         # Eliminar archivos físicos al borrar la instancia
-        if self.file and os.path.isfile(self.file.path):
-            os.remove(self.file.path)
-        if self.image and os.path.isfile(self.image.path):
-            os.remove(self.image.path)
+        if self.file and default_storage.exists(self.file.name):
+            default_storage.delete(self.file.name)
+        if self.image and default_storage.exists(self.image.name):
+            default_storage.delete(self.image.name)
         super().delete(*args, **kwargs)
     
     def file_exists(self):
         return self.file and default_storage.exists(self.file.name)
 
-# Los demás modelos permanecen igual...
+    class Meta:
+        verbose_name = "Canción"
+        verbose_name_plural = "Canciones"
+
 class Like(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
@@ -146,6 +97,8 @@ class Like(models.Model):
 
     class Meta:
         unique_together = ('user', 'song')
+        verbose_name = "Me gusta"
+        verbose_name_plural = "Me gusta"
 
     def __str__(self):
         return f"{self.user.username} likes {self.song.title}"
@@ -154,6 +107,10 @@ class Download(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     downloaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Descarga"
+        verbose_name_plural = "Descargas"
 
     def __str__(self):
         return f"{self.user.username} downloaded {self.song.title} on {self.downloaded_at}"
@@ -166,6 +123,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        verbose_name = "Comentario"
+        verbose_name_plural = "Comentarios"
 
     def __str__(self):
         return f"{self.user.username} - {self.song.title}"
@@ -181,6 +140,8 @@ class CommentReaction(models.Model):
 
     class Meta:
         unique_together = ('comment', 'user')
+        verbose_name = "Reacción a comentario"
+        verbose_name_plural = "Reacciones a comentarios"
 
 class MusicEvent(models.Model):
     title = models.CharField(max_length=255)
@@ -196,3 +157,5 @@ class MusicEvent(models.Model):
 
     class Meta:
         ordering = ['-event_date']
+        verbose_name = "Evento musical"
+        verbose_name_plural = "Eventos musicales"
