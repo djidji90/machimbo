@@ -19,7 +19,9 @@ from .views import (
     ArtistListView, 
      MusicEventListView,
       MusicEventDetailView,
-    song_suggestions
+    song_suggestions,
+    RandomSongsView ,
+    FeaturedArtistsView,
 )
 
 
@@ -56,7 +58,7 @@ urlpatterns = [
      # Detalle de un comentario
     path('events/', MusicEventListView.as_view(), name='music-event-list'),
     path('events/<int:pk>/', MusicEventDetailView.as_view(), name='music-event-detail'),
-    path('api/artists/featured/', views.FeaturedArtistsView.as_view(), name='featured-artists'),
+    path('api/artists/featured/', FeaturedArtistsView.as_view(), name='featured-artists'),
     path('artists/', ArtistListView.as_view(), name='artist-list'),  # Lista de artistas
     path('songs/suggestions/', song_suggestions, name='song-suggestions'),
   

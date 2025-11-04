@@ -123,6 +123,10 @@ DATABASES = {
 # -----------------------------------------------------------------------------
 #  REDIS / CACHE / CELERY
 # -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+#  REDIS / CACHE / CELERY
+# -----------------------------------------------------------------------------
 REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/1')
 
 CACHES = {
@@ -135,15 +139,20 @@ CACHES = {
     }
 }
 
-CELERY_BROKER_URL = REDIS_URL
-CELERY_RESULT_BACKEND = 'django-db'
+# ⚠️ DESACTIVAR CELERY TEMPORALMENTE - SOLUCIÓN DE EMERGENCIA ⚠️
+CELERY_TASK_ALWAYS_EAGER = True  # Ejecuta tareas inmediatamente en el mismo proceso
+CELERY_TASK_EAGER_PROPAGATES = True  # Las excepciones se propagan normalmente
+CELERY_BROKER_URL = 'memory://localhost/'  # Broker en memoria (no requiere Redis)
+CELERY_RESULT_BACKEND = 'cache+memory://'  # Resultados en cache de memoria
+
 CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json' 
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Malabo'
-CELERY_TASK_ALWAYS_EAGER = False
 
-# -----------------------------------------------------------------------------
+# Comentar estas líneas si existen:
+# CELERY_BEAT_SCHEDULE = {...}
+# CELERY_IMPORTS = [...]--------------------------------------------------------------------------
 #  JWT / REST FRAMEWORK
 # -----------------------------------------------------------------------------
 SIMPLE_JWT = {
