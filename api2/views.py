@@ -1,12 +1,9 @@
-
 from datetime import timedelta
-from time import timezone
-from drf_spectacular.utils import extend_schema, OpenApiParameter  # Esta línea debe estar presente
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from django.db import DatabaseError, IntegrityError
 from rest_framework.exceptions import ValidationError
 from django.db.models.functions import Lower
 from django.db.models import Value, CharField
-from rest_framework.response import Response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Song
@@ -15,20 +12,17 @@ from django.utils import timezone
 from django.db.models import Q
 
 from rest_framework.parsers import MultiPartParser, FormParser
-import magic
+# SIN MAGIC - SOLO IMPORTACIONES NECESARIAS
 from django.utils.text import slugify
 
 from django.db.models import Max
 from django.db.models import Sum
 from .serializers import SongSerializer
-from django.db.models import Q
-from rest_framework.decorators import api_view
 import logging
 from rest_framework import generics, permissions
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
 from django.core.cache import cache
 from django.db.models import Count, Q
@@ -39,25 +33,14 @@ from .serializers import SongSerializer, CommentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.throttling import UserRateThrottle
 from django.http import FileResponse, StreamingHttpResponse
-from django.core.files.storage import default_storage
-from drf_spectacular.utils import extend_schema, OpenApiParameter  # Importación requerida
 import random
 from rest_framework.filters import SearchFilter
-from rest_framework import generics, permissions
 from .models import MusicEvent
 from .serializers import MusicEventSerializer
-from rest_framework.response import Response
-from rest_framework import status
 import os
 from django.db.models import Prefetch, Count
 
 logger = logging.getLogger(__name__)
-
-
-
-
-
-# En tu views.py
 
 @extend_schema(
     description="Obtener sugerencias de búsqueda en tiempo real",
@@ -115,15 +98,10 @@ def song_suggestions(request):
     
     return Response({"suggestions": unique_suggestions[:5]})
 
-
-
-
-
-
 class CommentPagination(PageNumberPagination):
     page_size = 100
     page_size_query_param = 'page_size'
-# Music Event List View
+
 @extend_schema(description="Listar eventos de música")
 class MusicEventListView(generics.ListCreateAPIView):
     queryset = MusicEvent.objects.all()
@@ -149,8 +127,6 @@ class MusicEventListView(generics.ListCreateAPIView):
             logger.error(f"Error creating event: {e}")
             raise ValidationError("Error inesperado al crear el evento")
 
-
-# Music Event Detail View
 @extend_schema(description="Obtener, actualizar o eliminar un evento de música")
 class MusicEventDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MusicEvent.objects.all()
@@ -189,8 +165,6 @@ class MusicEventDetailView(generics.RetrieveUpdateDestroyAPIView):
             logger.error(f"Error deleting event: {e}")
             raise ValidationError("Error inesperado al eliminar el evento")
 
-
-# Song Likes View
 class SongLikesView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -211,8 +185,15 @@ class SongLikesView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
+class UploadThrottle(UserRateThrottle):
+    scope = 'upload'
+    
+    http_method_names = ['post', 'put', 'patch']
+    
+    @classmethod
+    def get_schema_operation_parameters(cls):
+        return []
 
-# Song List View with Flexible Search
 @extend_schema(
     description="Lista y busca canciones con filtros avanzados",
     parameters=[
@@ -221,18 +202,6 @@ class SongLikesView(APIView):
         OpenApiParameter(name='genre', description='Filtrar por género', required=False, type=str),
     ]
 )
-
-
-
-class UploadThrottle(UserRateThrottle):
-    scope = 'upload'  # Usará la tasa definida en settings.py
-    
-    http_method_names = ['post', 'put', 'patch']
-    
-    @classmethod
-    def get_schema_operation_parameters(cls):
-        return []
-
 class SongListView(generics.ListCreateAPIView):
     serializer_class = SongSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -242,16 +211,13 @@ class SongListView(generics.ListCreateAPIView):
     parser_classes = [MultiPartParser, FormParser]
     throttle_classes = [UploadThrottle]
     
-    # Cambiamos el queryset inicial para que no esté vacío
     queryset = Song.objects.all()
 
     def get_queryset(self):
-        # Construimos la clave de caché basada en todos los parámetros de búsqueda
         cache_key = f"songs_list_{self.request.query_params.urlencode()}"
         queryset = cache.get(cache_key)
         
         if queryset is None:
-            # Base queryset con todas las anotaciones necesarias
             queryset = Song.objects.annotate(
                 likes_count_dynamic=Count('like', distinct=True),
                 comments_count=Count('comments', distinct=True),
@@ -264,28 +230,20 @@ class SongListView(generics.ListCreateAPIView):
                 )
             )
             
-            # Aplicamos filtros adicionales
             if self.request.query_params.get('my_songs', '').lower() == 'true':
                 if not self.request.user.is_authenticated:
                     raise PermissionDenied("Debes iniciar sesión para ver tus canciones")
                 queryset = queryset.filter(uploaded_by=self.request.user)
             
-            # Aplicamos búsqueda por título si está presente
             title_query = self.request.query_params.get('title')
             if title_query:
                 queryset = queryset.filter(title__icontains=title_query)
             
-            # Guardamos en caché solo después de aplicar todos los filtros
             cache.set(cache_key, queryset, 300)
         
         return queryset
 
-    # ... (el resto de los métodos permanecen igual)
-
 class MySongsView(generics.ListAPIView):
-    """
-    Vista para listar las canciones del usuario actual con estadísticas.
-    """
     serializer_class = SongSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [SearchFilter]
@@ -300,20 +258,19 @@ class MySongsView(generics.ListAPIView):
             queryset = Song.objects.filter(
                 uploaded_by=user
             ).annotate(
-                total_likes=Count('like', distinct=True),  # Anotación renombrada
-                total_comments=Count('comments', distinct=True),  # Anotación renombrada
-                total_downloads=Count('download', distinct=True),  # Anotación renombrada
+                total_likes=Count('like', distinct=True),
+                total_comments=Count('comments', distinct=True),
+                total_downloads=Count('download', distinct=True),
                 last_download=Max('download__downloaded_at')
             ).select_related('uploaded_by').order_by('-created_at')
             
-            cache.set(cache_key, queryset, 120)  # Cache por 2 minutos
+            cache.set(cache_key, queryset, 120)
         
         return queryset
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         
-        # Obtener estadísticas directamente del queryset
         stats = {
             'total_songs': queryset.count(),
             'total_downloads': queryset.aggregate(
@@ -325,13 +282,13 @@ class MySongsView(generics.ListAPIView):
             'last_upload': queryset.first().created_at if queryset.exists() else None
         }
 
-        # Serializar los resultados
         serializer = self.get_serializer(queryset, many=True)
         
         return Response({
             'stats': stats,
             'songs': serializer.data
         })
+
 class SongSearchSuggestionsView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -359,8 +316,6 @@ class SongSearchSuggestionsView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-
-# Like Song View
 @extend_schema(description="Dar o quitar like a una canción")
 class LikeSongView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -377,7 +332,6 @@ class LikeSongView(APIView):
             else:
                 message = "Like agregado"
 
-            # Actualización atómica del contador
             song.likes_count = Like.objects.filter(song=song).count()
             song.save(update_fields=['likes_count'])
             cache.set(f"song_{song_id}_likes_count", song.likes_count, timeout=300)
@@ -400,20 +354,14 @@ class LikeSongView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-
-# Download Song View
 @extend_schema(description="Descargar una canción con control de frecuencia")
-
-
 class DownloadSongView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     throttle_classes = [UserRateThrottle]
     
-    # Configuración de límites (1 hora de cooldown)
-    DOWNLOAD_COOLDOWN = timedelta(hours=1)  # Tiempo de espera entre descargas de la misma canción
+    DOWNLOAD_COOLDOWN = timedelta(hours=1)
 
     def get(self, request, song_id):
-        # Claves para el sistema de bloqueo y control
         lock_key = f"download_lock_{request.user.id}_{song_id}"
         download_cooldown_key = f"download_cooldown_{request.user.id}_{song_id}"
 
@@ -423,18 +371,15 @@ class DownloadSongView(APIView):
             if not song.file or not song.file.storage.exists(song.file.name):
                 raise NotFound("El archivo de la canción no está disponible")
 
-            # Verificar si el usuario está intentando descargar actualmente
             if cache.get(lock_key):
                 return Response(
                     {"error": "Estás en proceso de descarga de esta canción. Por favor espera."},
                     status=status.HTTP_429_TOO_MANY_REQUESTS
                 )
 
-            # Bloquear para evitar descargas simultáneas
             cache.set(lock_key, True, timeout=60)
 
             with transaction.atomic():
-                # Verificar si ya descargó esta canción recientemente (en la última hora)
                 last_download = Download.objects.filter(
                     user=request.user,
                     song=song,
@@ -453,38 +398,27 @@ class DownloadSongView(APIView):
                         status=status.HTTP_429_TOO_MANY_REQUESTS
                     )
 
-                # Registrar la descarga
                 Download.objects.create(user=request.user, song=song)
-                
-                # Marcar esta canción como descargada recientemente (en caché y DB)
                 cache.set(download_cooldown_key, True, timeout=self.DOWNLOAD_COOLDOWN.total_seconds())
-                
-                # Liberar el bloqueo
                 cache.delete(lock_key)
 
-            # Preparar la respuesta con el archivo
             file = song.file.open('rb')
             filename = f"{slugify(song.title)}-{slugify(song.artist)}{os.path.splitext(song.file.name)[1]}"
             response = FileResponse(file, as_attachment=True, filename=filename)
             response["Content-Length"] = song.file.size
-            
-            # Headers adicionales para información del usuario
             response["X-Download-Cooldown"] = self.DOWNLOAD_COOLDOWN.total_seconds()
             response["X-Download-Time"] = timezone.now().isoformat()
             
             return response
 
         except Exception as e:
-            # Asegurarse de liberar el bloqueo en caso de error
             cache.delete(lock_key)
             logger.error(f"Error en descarga: {str(e)}", exc_info=True)
             return Response(
                 {"error": "No se pudo completar la descarga"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-import random
 
-# Stream Song View
 @extend_schema(description="Reproducir una canción en streaming")
 class StreamSongView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -515,8 +449,6 @@ class StreamSongView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-
-# Comments Views
 @extend_schema(tags=['Comentarios'])
 class CommentListCreateView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
@@ -540,7 +472,6 @@ class CommentListCreateView(generics.ListCreateAPIView):
         except Exception as e:
             logger.error(f"Error creating comment: {e}")
             raise ValidationError("Error inesperado al crear comentario")
-
 
 @extend_schema(tags=['Comentarios'])
 class SongCommentsDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -576,8 +507,6 @@ class SongCommentsDetailView(generics.RetrieveUpdateDestroyAPIView):
             logger.error(f"Database error deleting comment: {e}")
             raise ValidationError("Error al eliminar el comentario")
 
-
-# Artist List View
 @extend_schema(description="Lista de artistas únicos con cache")
 class ArtistListView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -603,15 +532,12 @@ class ArtistListView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-# Random Songs View
-# Vista para artistas destacados
 @extend_schema(description="Obtener artistas destacados para el carrusel")
 class FeaturedArtistsView(APIView):
     permission_classes = [permissions.AllowAny]
     
     def get(self, request):
         try:
-            # Obtener artistas únicos con sus imágenes y estadísticas
             featured_artists = Song.objects.exclude(
                 Q(image__isnull=True) | Q(image='')
             ).values('artist').annotate(
@@ -619,12 +545,10 @@ class FeaturedArtistsView(APIView):
                 total_likes=Sum('likes_count'),
                 latest_image=Max('image'),
                 latest_genre=Max('genre')
-            ).order_by('-total_likes')[:8]  # Limitar a 8 artistas más populares
+            ).order_by('-total_likes')[:8]
             
-            # Construir la respuesta
             artists_data = []
             for artist in featured_artists:
-                # Obtener la canción más reciente del artista para la bio
                 latest_song = Song.objects.filter(
                     artist=artist['artist']
                 ).exclude(
@@ -648,6 +572,7 @@ class FeaturedArtistsView(APIView):
                 {"error": "Error al obtener artistas destacados"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
 @extend_schema(description="Selección aleatoria de canciones")
 class RandomSongsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -679,5 +604,3 @@ class RandomSongsView(APIView):
                 {"error": "Error al obtener canciones aleatorias"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
- 
- 
