@@ -1,39 +1,38 @@
 """
-Django settings for djidji1 project (Producción).
-Adaptado para despliegue en Railway u otros proveedores.
+Django settings para djidji1 (Producción).
+Optimizado para despliegue en Railway.
 """
-import os
+
 from pathlib import Path
-from decimal import Decimal
 from datetime import timedelta
-from dotenv import load_dotenv
-import dj_database_url
-from django.core.exceptions import ImproperlyConfigured
+from decimal import Decimal
+import environ
 
-# Cargar variables de entorno
-load_dotenv()
-
-# ------------------------------
-# Paths
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  BASE Y VARIABLES DE ENTORNO
+# -----------------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ------------------------------
-# Seguridad
-# ------------------------------
-SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
-    raise ImproperlyConfigured("La variable de entorno SECRET_KEY no está definida")
+# Inicializar django-environ
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env(BASE_DIR / '.env')  # Carga el archivo .env local si existe
 
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", SECRET_KEY)
+# -----------------------------------------------------------------------------
+#  SEGURIDAD
+# -----------------------------------------------------------------------------
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
 
-DEBUG = False
+ALLOWED_HOSTS = env.list(
+    'ALLOWED_HOSTS',
+    default=['localhost', '127.0.0.1']
+)
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-
-# ------------------------------
-# Aplicaciones
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  APLICACIONES
+# -----------------------------------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,17 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party
+    # Paquetes externos
     'corsheaders',
     'django_celery_beat',
     'django_celery_results',
+    'django_filters',
+    'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
-    'django_filters',
-    'drf_yasg',
 
-    # Local
+    # Apps internas
     'musica',
     'api2',
     'monedero.apps.MonederoConfig',
@@ -61,9 +60,9 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'musica.CustomUser'
 
-# ------------------------------
-# Middleware
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  MIDDLEWARE
+# -----------------------------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -78,9 +77,21 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'djidji1.urls'
 
-# ------------------------------
-# Templates
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  CORS
+# -----------------------------------------------------------------------------
+CORS_ALLOWED_ORIGINS = env.list(
+    'CORS_ALLOWED_ORIGINS',
+    default=[
+        'https://djidjimudic.com',
+        'https://www.djidjimudic.com',
+        'http://localhost:8000',
+    ]
+)
+
+# -----------------------------------------------------------------------------
+#  TEMPLATES
+# -----------------------------------------------------------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -99,106 +110,69 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djidji1.wsgi.application'
 
-# ------------------------------
-# Base de datos
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  BASE DE DATOS
+# -----------------------------------------------------------------------------
 DATABASES = {
-    'default': dj_database_url.config(
-        conn_max_age=600,
-        ssl_require=True
+    'default': env.db(
+        'DATABASE_URL',
+        default='postgres://postgres:postgres@localhost:5432/djidji1'
     )
 }
 
-# ------------------------------
-# Cache / Redis
-# ------------------------------
-REDIS_URL = os.getenv("REDIS_URL")
+# -----------------------------------------------------------------------------
+#  REDIS / CACHE / CELERY
+# -----------------------------------------------------------------------------
+REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/1')
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL or "redis://localhost:6379/1",
-        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+        "LOCATION": REDIS_URL,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
     }
 }
 
-# ------------------------------
-# Celery
-# ------------------------------
 CELERY_BROKER_URL = REDIS_URL
-CELERY_RESULT_BACKEND = REDIS_URL
-CELERY_TASK_ALWAYS_EAGER = False
+CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Malabo'
+CELERY_TASK_ALWAYS_EAGER = False
 
-# ------------------------------
-# Celery Beat (ejemplo)
-# ------------------------------
-from celery.schedules import crontab
-CELERY_BEAT_SCHEDULE = {
-    'liberar-fondos': {
-        'task': 'ventas.tasks.liberar_fondos_retenidos',
-        'schedule': crontab(minute='*/15'),
-    },
-    'actualizar-destacados': {
-        'task': 'ventas.tasks.actualizar_productos_destacados',
-        'schedule': crontab(hour=3, minute=0),
-    },
-}
-
-# ------------------------------
-# REST Framework y JWT
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  JWT / REST FRAMEWORK
+# -----------------------------------------------------------------------------
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': JWT_SECRET_KEY,
+    'SIGNING_KEY': SECRET_KEY,
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'username',
-    'USER_ID_CLAIM': 'user_id'
+    'USER_ID_CLAIM': 'user_id',
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_THROTTLE_RATES': {
-        'transacciones': '5/minute',
-        'transferencias': '10/hour',
-        'anon': '100/hour',
-        'user': '1000/hour'
-    },
 }
 
-# ------------------------------
-# Archivos estáticos y media
-# ------------------------------
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-# ------------------------------
-# CORS
-# ------------------------------
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
-
-# ------------------------------
-# Seguridad adicional
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  SEGURIDAD Y COOKIES
+# -----------------------------------------------------------------------------
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
@@ -208,31 +182,27 @@ SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 
-# ------------------------------
-# Internacionalización
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  ARCHIVOS
+# -----------------------------------------------------------------------------
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# -----------------------------------------------------------------------------
+#  INTERNACIONALIZACIÓN
+# -----------------------------------------------------------------------------
 LANGUAGE_CODE = 'es-us'
 TIME_ZONE = 'Africa/Malabo'
 USE_I18N = True
 USE_TZ = True
 
-# ------------------------------
-# Monedero y wallet
-# ------------------------------
-WALLET_SETTINGS = {
-    'MAX_PIN_ATTEMPTS': 3,
-    'PIN_LOCK_DURATION_MINUTES': 30,
-    'DAILY_LIMIT_DEFAULT': Decimal('1000000.00'),
-    'CURRENCIES': [
-        ('USD', 'Dólares Estadounidenses'),
-        ('EUR', 'Euros'),
-        ('XAF', 'Franco CFA Centroafricano'),
-        ('XOF', 'Franco CFA Occidental'),
-    ]
-}
-
-DEFAULT_CURRENCY = 'XAF'
-
+# -----------------------------------------------------------------------------
+#  MONEDERO / WALLET CONFIG
+# -----------------------------------------------------------------------------
 MONEDERO_CONFIG = {
     'SALDO_MINIMO': Decimal('2000.00'),
     'MAX_RETIRO_DIARIO': Decimal('1000000.00'),
@@ -242,9 +212,9 @@ MONEDERO_CONFIG = {
     'COMISION_TRANSFERENCIA': Decimal('0.01'),
 }
 
-# ------------------------------
-# Logging
-# ------------------------------
+# -----------------------------------------------------------------------------
+#  LOGGING
+# -----------------------------------------------------------------------------
 LOG_DIR = BASE_DIR / 'logs'
 LOG_DIR.mkdir(exist_ok=True)
 LOGGING = {
@@ -278,3 +248,5 @@ LOGGING = {
         'django': {'handlers': ['django_errors'], 'level': 'ERROR', 'propagate': True},
     },
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
