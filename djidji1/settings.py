@@ -6,29 +6,24 @@ Optimizado para despliegue en Railway.
 from pathlib import Path
 from datetime import timedelta
 from decimal import Decimal
-import environ
+import os
+from dotenv import load_dotenv
 
 # -----------------------------------------------------------------------------
 #  BASE Y VARIABLES DE ENTORNO
 # -----------------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Inicializar django-environ
-env = environ.Env(
-    DEBUG=(bool, False)
-)
-environ.Env.read_env(BASE_DIR / '.env')  # Carga el archivo .env local si existe
+# Cargar variables de entorno desde .env
+load_dotenv(BASE_DIR / '.env')
 
 # -----------------------------------------------------------------------------
 #  SEGURIDAD
 # -----------------------------------------------------------------------------
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
+SECRET_KEY = os.getenv('SECRET_KEY', 'clave-por-defecto-cambiar-en-produccion')
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = env.list(
-    'ALLOWED_HOSTS',
-    default=['*']  # Temporal para pruebas
-)
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 # -----------------------------------------------------------------------------
 #  APLICACIONES
@@ -81,7 +76,7 @@ ROOT_URLCONF = 'djidji1.urls'
 #  CORS
 # -----------------------------------------------------------------------------
 CORS_ALLOWED_ORIGINS = [
-    'https://web-production-a846.up.railway.app',  # ← AÑADE ESTE
+    'https://web-production-a846.up.railway.app',
     'https://djidjimudic.com',
     'https://www.djidjimudic.com',
     'http://localhost:3000',
@@ -121,27 +116,57 @@ WSGI_APPLICATION = 'djidji1.wsgi.application'
 # -----------------------------------------------------------------------------
 #  BASE DE DATOS
 # -----------------------------------------------------------------------------
-DATABASES = {
-    'default': env.db(
-        'DATABASE_URL',
-        default='postgres://postgres:postgres@localhost:5432/djidji1'
-    )
-}
+# Configuración manual de base de datos desde DATABASE_URL
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL and DATABASE_URL.startswith('postgresql://'):
+    # Parsear DATABASE_URL manualmente
+    db_parts = DATABASE_URL.replace('postgresql://', '').split('@')
+    user_pass, host_db = db_parts[0], db_parts[1]
+    user, password = user_pass.split(':')
+    host_port, database = host_db.split('/')
+    host, port = host_port.split(':')
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': database,
+            'USER': user,
+            'PASSWORD': password,
+            'HOST': host,
+            'PORT': port,
+        }
+    }
+else:
+    # Base de datos por defecto (SQLite para desarrollo)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # -----------------------------------------------------------------------------
 #  REDIS / CACHE / CELERY
 # -----------------------------------------------------------------------------
-REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/1')
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/1')
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
+if REDIS_URL and REDIS_URL.startswith('redis://'):
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        }
     }
-}
+else:
+    # Cache local si no hay Redis
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }
+    }
 
 # ⚠️ DESACTIVAR CELERY TEMPORALMENTE
 CELERY_TASK_ALWAYS_EAGER = True
@@ -252,11 +277,35 @@ LOGGING = {
             'filename': str(LOG_DIR / 'django_errors.log'),
             'formatter': 'verbose',
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
-        'monedero.tasks': {'handlers': ['celery_file', 'celery_errors'], 'level': 'INFO', 'propagate': True},
-        'django': {'handlers': ['django_errors'], 'level': 'ERROR', 'propagate': True},
+        'monedero.tasks': {
+            'handlers': ['celery_file', 'celery_errors', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['django_errors', 'console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     },
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# -----------------------------------------------------------------------------
+#  CONFIGURACIONES ADICIONALES
+# -----------------------------------------------------------------------------
+# Para Railway - manejo de archivos estáticos
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Configuración de email (opcional)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
