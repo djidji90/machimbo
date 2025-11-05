@@ -59,7 +59,6 @@ python-crontab==3.2.0
 python-dateutil==2.9.0.post0
 python-decouple==3.8
 python-dotenv==1.1.0
-python-magic==0.4.27
 pytz==2025.2
 PyYAML==6.0.2
 redis==4.6.0
@@ -81,3 +80,4 @@ wcwidth==0.2.13
 wheel==0.45.1
 whitenoise==6.6.0
 yarl==1.20.1
+python-magic==0.4.27
