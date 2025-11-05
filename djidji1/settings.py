@@ -7,6 +7,7 @@ from pathlib import Path
 from datetime import timedelta
 from decimal import Decimal
 import os
+import dj_database_url
 from dotenv import load_dotenv
 
 # -----------------------------------------------------------------------------
@@ -114,36 +115,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djidji1.wsgi.application'
 
 # -----------------------------------------------------------------------------
-#  BASE DE DATOS
+#  BASE DE DATOS (CONFIGURACIÓN SIMPLIFICADA)
 # -----------------------------------------------------------------------------
-# Configuración manual de base de datos desde DATABASE_URL
-DATABASE_URL = os.getenv('DATABASE_URL')
-if DATABASE_URL and DATABASE_URL.startswith('postgresql://'):
-    # Parsear DATABASE_URL manualmente
-    db_parts = DATABASE_URL.replace('postgresql://', '').split('@')
-    user_pass, host_db = db_parts[0], db_parts[1]
-    user, password = user_pass.split(':')
-    host_port, database = host_db.split('/')
-    host, port = host_port.split(':')
-    
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': database,
-            'USER': user,
-            'PASSWORD': password,
-            'HOST': host,
-            'PORT': port,
-        }
-    }
-else:
-    # Base de datos por defecto (SQLite para desarrollo)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True
+    )
+}
 
 # -----------------------------------------------------------------------------
 #  REDIS / CACHE / CELERY
@@ -218,11 +199,13 @@ SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 
 # -----------------------------------------------------------------------------
-#  ARCHIVOS
+#  ARCHIVOS (CONFIGURACIÓN CORREGIDA)
 # -----------------------------------------------------------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ⚠️ STATICFILES_DIRS ELIMINADO - Causaba el warning
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -302,10 +285,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # -----------------------------------------------------------------------------
 #  CONFIGURACIONES ADICIONALES
 # -----------------------------------------------------------------------------
-# Para Railway - manejo de archivos estáticos
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
 # Configuración de email (opcional)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
