@@ -136,23 +136,17 @@ else:
 # -----------------------------------------------------------------------------
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/1')
 
-if REDIS_URL and REDIS_URL.startswith('redis://'):
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": REDIS_URL,
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            },
-        }
-    }
-else:
-    # Cache local si no hay Redis
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        }
-    }
+# -------------------------------------------------------------------------
+# CELERY CONFIGURATION
+# -------------------------------------------------------------------------
+CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://localhost:6379/1")
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Malabo'
+CELERY_ENABLE_UTC = True
+
 
 # ⚠️ DESACTIVAR CELERY TEMPORALMENTE
 if os.getenv("RAILWAY_ENV") == "production":
