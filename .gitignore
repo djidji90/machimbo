@@ -1,12 +1,27 @@
+# Entorno virtual
+venv/
 .env
-*.env.local
-*.env.production
+
+# Archivos compilados de Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.tar.gz
-*.zip
-*.egg-info/
-.venv/
-venv/logs/ 
+*.py[cod]
+*$py.class
+
+# Django
+*.sqlite3
+/staticfiles/
+media/
+
+# Logs
+logs/
+*.log
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema
+.DS_Store
+Thumbs.db

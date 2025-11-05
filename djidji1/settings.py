@@ -117,33 +117,19 @@ WSGI_APPLICATION = 'djidji1.wsgi.application'
 #  BASE DE DATOS
 # -----------------------------------------------------------------------------
 # Configuración manual de base de datos desde DATABASE_URL
-DATABASE_URL = os.getenv('DATABASE_URL')
-if DATABASE_URL and DATABASE_URL.startswith('postgresql://'):
-    # Parsear DATABASE_URL manualmente
-    db_parts = DATABASE_URL.replace('postgresql://', '').split('@')
-    user_pass, host_db = db_parts[0], db_parts[1]
-    user, password = user_pass.split(':')
-    host_port, database = host_db.split('/')
-    host, port = host_port.split(':')
-    
+if os.getenv("RAILWAY_ENV") == "production":
+    import dj_database_url
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': database,
-            'USER': user,
-            'PASSWORD': password,
-            'HOST': host,
-            'PORT': port,
-        }
+        "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
     }
 else:
-    # Base de datos por defecto (SQLite para desarrollo)
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+
 
 # -----------------------------------------------------------------------------
 #  REDIS / CACHE / CELERY
@@ -169,14 +155,10 @@ else:
     }
 
 # ⚠️ DESACTIVAR CELERY TEMPORALMENTE
-CELERY_TASK_ALWAYS_EAGER = True
-CELERY_TASK_EAGER_PROPAGATES = True
-CELERY_BROKER_URL = 'memory://localhost/'
-CELERY_RESULT_BACKEND = 'cache+memory://'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Africa/Malabo'
+if os.getenv("RAILWAY_ENV") == "production":
+    CELERY_BROKER_URL = os.getenv("REDIS_URL")
+    CELERY_RESULT_BACKEND = os.getenv("REDIS_URL")
+
 
 # -----------------------------------------------------------------------------
 #  JWT / REST FRAMEWORK

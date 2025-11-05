@@ -1,0 +1,3 @@
+web: gunicorn djidji1.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 2 --preload
+worker: celery -A djidji1 worker --loglevel=info
+beat: celery -A djidji1 beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
