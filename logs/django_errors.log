@@ -10104,3 +10104,1046 @@ Traceback (most recent call last):
     )
 django.core.exceptions.ImproperlyConfigured: settings.DATABASES is improperly configured. Please supply the ENGINE value. Check settings documentation for more details.
 "GET / HTTP/1.1" 500 185142
+ERROR 2025-11-05 23:55:26,151 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: musica_customuser
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\edit.py", line 150, in post
+    if form.is_valid():
+       ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 206, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 201, in errors
+    self.full_clean()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 338, in full_clean
+    self._clean_form()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 354, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\forms.py", line 366, in clean
+    self.user_cache = authenticate(
+                      ~~~~~~~~~~~~^
+        self.request, username=username, password=password
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 114, in authenticate
+    user = backend.authenticate(request, **credentials)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\backends.py", line 65, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\base_user.py", line 37, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: musica_customuser
+ERROR 2025-11-05 23:55:28,158 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 500 145
+ERROR 2025-11-05 23:58:43,419 log Internal Server Error: /api2/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-05 23:58:45,235 basehttp "GET /api2/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 02:00:44,156 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: musica_customuser
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\edit.py", line 150, in post
+    if form.is_valid():
+       ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 206, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 201, in errors
+    self.full_clean()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 338, in full_clean
+    self._clean_form()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 354, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\forms.py", line 366, in clean
+    self.user_cache = authenticate(
+                      ~~~~~~~~~~~~^
+        self.request, username=username, password=password
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 114, in authenticate
+    user = backend.authenticate(request, **credentials)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\backends.py", line 65, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\base_user.py", line 37, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: musica_customuser
+ERROR 2025-11-06 02:00:44,535 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 500 145
+ERROR 2025-11-06 02:02:06,682 log Internal Server Error: /api2/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 02:02:06,833 basehttp "GET /api2/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 02:03:15,132 log Internal Server Error: /api2/api/artists/featured/
+ERROR 2025-11-06 02:03:15,133 basehttp "GET /api2/api/artists/featured/ HTTP/1.1" 500 5362
+ERROR 2025-11-06 02:03:33,417 log Internal Server Error: /api2/artists/
+ERROR 2025-11-06 02:03:33,419 basehttp "GET /api2/artists/ HTTP/1.1" 500 5250
+ERROR 2025-11-06 02:04:02,323 log Internal Server Error: /api2/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 02:04:02,383 basehttp "GET /api2/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 02:04:06,012 log Internal Server Error: /api2/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 02:04:06,060 basehttp "GET /api2/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 02:04:09,769 log Internal Server Error: /api2/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 02:04:09,828 basehttp "GET /api2/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 02:04:53,129 log Internal Server Error: /api2/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 02:04:53,196 basehttp "GET /api2/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 12:28:10,274 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: musica_customuser
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\edit.py", line 150, in post
+    if form.is_valid():
+       ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 206, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 201, in errors
+    self.full_clean()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 338, in full_clean
+    self._clean_form()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 354, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\forms.py", line 366, in clean
+    self.user_cache = authenticate(
+                      ~~~~~~~~~~~~^
+        self.request, username=username, password=password
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 114, in authenticate
+    user = backend.authenticate(request, **credentials)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\backends.py", line 65, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\base_user.py", line 37, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: musica_customuser
+ERROR 2025-11-06 12:28:11,831 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: musica_customuser
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\edit.py", line 150, in post
+    if form.is_valid():
+       ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 206, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 201, in errors
+    self.full_clean()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 338, in full_clean
+    self._clean_form()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\forms\forms.py", line 354, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\forms.py", line 366, in clean
+    self.user_cache = authenticate(
+                      ~~~~~~~~~~~~^
+        self.request, username=username, password=password
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 114, in authenticate
+    user = backend.authenticate(request, **credentials)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\backends.py", line 65, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\auth\base_user.py", line 37, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: musica_customuser
+ERROR 2025-11-06 12:28:12,931 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 500 145
+ERROR 2025-11-06 13:00:38,632 log Internal Server Error: /admin/api2/song/add/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: api2_song
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\options.py", line 1984, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\options.py", line 1843, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\options.py", line 1894, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\contrib\admin\options.py", line 1314, in save_model
+    obj.save()
+    ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\api2\models.py", line 76, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\base.py", line 1210, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\query.py", line 1868, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1882, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: api2_song
+ERROR 2025-11-06 13:00:38,935 basehttp "POST /admin/api2/song/add/ HTTP/1.1" 500 145
+ERROR 2025-11-06 13:29:36,687 log Internal Server Error: /api2/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 13:29:38,065 basehttp "GET /api2/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 13:48:04,569 log Internal Server Error: /api2/v1/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 13:48:04,671 basehttp "GET /api2/v1/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 14:12:27,256 log Internal Server Error: /api2/v1/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 14:12:27,356 basehttp "GET /api2/v1/songs/ HTTP/1.1" 500 145
+ERROR 2025-11-06 14:13:45,211 log Internal Server Error: /api2/v1/songs/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 92, in get_rate
+    return self.THROTTLE_RATES[self.scope]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'upload'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 422, in initial
+    self.check_throttles(request)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 364, in check_throttles
+    for throttle in self.get_throttles():
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 290, in get_throttles
+    return [throttle() for throttle in self.throttle_classes]
+            ~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 70, in __init__
+    self.rate = self.get_rate()
+                ~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\throttling.py", line 95, in get_rate
+    raise ImproperlyConfigured(msg)
+django.core.exceptions.ImproperlyConfigured: No default throttle rate set for 'upload' scope
+ERROR 2025-11-06 14:13:45,244 basehttp "GET /api2/v1/songs/ HTTP/1.1" 500 145

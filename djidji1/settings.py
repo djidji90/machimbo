@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
     # Paquetes externos
     'corsheaders',
     'django_celery_beat',
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'api2',
     'monedero.apps.MonederoConfig',
     'tienda',
+    "core",
 ]
 
 AUTH_USER_MODEL = 'musica.CustomUser'
@@ -172,14 +173,35 @@ SIMPLE_JWT = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
+        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    # ⚡ Configuración de Throttling
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1000/day',
+        'anon': '100/day',
+        'upload': '10/hour',  # <--- scope personalizado
+    },
 }
+
+# Configuración de drf-spectacular (debe estar afuera del diccionario REST_FRAMEWORK)
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Djidji API',
+    'DESCRIPTION': 'API de música, tienda y monedero de Djidji',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+
 
 # -----------------------------------------------------------------------------
 #  SEGURIDAD Y COOKIES
