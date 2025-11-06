@@ -1,13 +1,20 @@
 from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import RedirectView
+from django.urls import path, include  # path y include deben importarse
+        # si usas vista raíz
 
 urlpatterns = [
+    path('', include('core.urls')),                 # raíz
+  
     path('admin/', admin.site.urls),
 
-    # Core API
-    path('api/core/', include('core.urls')),
+    # Música
+    path('musica/v1/', include('musica.urls')),
 
-    # Redirigir home "/" directamente a la info de la API
-    path('', RedirectView.as_view(url='/api/core/', permanent=False)),
+    # API2 (por ejemplo, canciones, artistas, eventos)
+    path('api2/v1/', include('api2.urls')),
+
+    # Monedero
+    path('monedero/v1/', include('monedero.urls')),
+
+   
 ]
