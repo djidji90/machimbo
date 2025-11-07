@@ -23,8 +23,11 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY', 'clave-por-defecto-cambiar-en-produccion')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'web-production-a846.up.railway.app').split(',')
-PORT = os.environ.get('PORT')
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS',
+    '127.0.0.1,localhost,web-production-a846.up.railway.app'
+).split(',')
+
 
 
 # -----------------------------------------------------------------------------
