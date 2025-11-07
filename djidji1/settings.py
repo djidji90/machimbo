@@ -23,7 +23,9 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY', 'clave-por-defecto-cambiar-en-produccion')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'web-production-a846.up.railway.app').split(',')
+PORT = os.environ.get('PORT')
+
 
 # -----------------------------------------------------------------------------
 #  APLICACIONES
@@ -306,5 +308,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configuración de email (opcional)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-import os
-PORT = os.environ.get('PORT', '8000')
+
+
