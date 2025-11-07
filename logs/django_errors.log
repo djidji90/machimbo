@@ -11167,3 +11167,121 @@ Traceback (most recent call last):
     raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
 django.template.exceptions.TemplateDoesNotExist: drf_spectacular/swagger_ui.html
 ERROR 2025-11-06 15:37:20,309 basehttp "GET /docs/swagger/ HTTP/1.1" 500 145
+ERROR 2025-11-06 22:49:30,587 log Internal Server Error: /monedero/v1/monedero/api/dashboard/
+ERROR 2025-11-06 22:49:30,637 basehttp "GET /monedero/v1/monedero/api/dashboard/ HTTP/1.1" 500 5601
+ERROR 2025-11-06 23:20:18,851 log Internal Server Error: /docs/redoc/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\renderers.py", line 160, in render
+    template = self.resolve_template(template_names)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\renderers.py", line 170, in resolve_template
+    return loader.select_template(template_names)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: drf_spectacular/redoc.html
+ERROR 2025-11-06 23:20:18,968 basehttp "GET /docs/redoc/ HTTP/1.1" 500 145
+ERROR 2025-11-06 23:20:33,407 log Internal Server Error: /docs/swagger/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\renderers.py", line 160, in render
+    template = self.resolve_template(template_names)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\renderers.py", line 170, in resolve_template
+    return loader.select_template(template_names)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: drf_spectacular/swagger_ui.html
+ERROR 2025-11-06 23:20:33,420 basehttp "GET /docs/swagger/ HTTP/1.1" 500 145
+ERROR 2025-11-06 23:20:51,982 log Internal Server Error: /schema/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
+    operation = view.schema.get_operation(
+        path, path_regex, path_prefix, method, self.registry
+    )
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\openapi.py", line 92, in get_operation
+    parameters = self._get_parameters()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\openapi.py", line 264, in _get_parameters
+    **dict_helper(self._get_filter_parameters()),
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\openapi.py", line 555, in _get_filter_parameters
+    parameters += filter_extension.get_schema_operation_parameters(self)
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\drf_spectacular\contrib\django_filters.py", line 58, in get_schema_operation_parameters
+    filterset_class = self.target.get_filterset_class(auto_schema.view, get_manager(model).none())
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django_filters\rest_framework\backends.py", line 49, in get_filterset_class
+    class AutoFilterSet(self.filterset_base):
+    ...<2 lines>...
+            fields = filterset_fields
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django_filters\filterset.py", line 82, in __new__
+    new_class.base_filters = new_class.get_filters()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django_filters\filterset.py", line 371, in get_filters
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: 'Meta.fields' must not contain non-model field names: usuario
+ERROR 2025-11-06 23:20:52,369 basehttp "GET /schema/ HTTP/1.1" 500 145
+ERROR 2025-11-06 23:21:59,535 log Internal Server Error: /docs/swagger/
+Traceback (most recent call last):
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\renderers.py", line 160, in render
+    template = self.resolve_template(template_names)
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\rest_framework\renderers.py", line 170, in resolve_template
+    return loader.select_template(template_names)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Desktop\djidji1_respaldo\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: drf_spectacular/swagger_ui.html
+ERROR 2025-11-06 23:21:59,550 basehttp "GET /docs/swagger/ HTTP/1.1" 500 145
